@@ -1,6 +1,6 @@
 # Backend-api project setup:
 
-### Step1: Install nest dependiency
+### Step 1: Install nest dependiency
 ```
 npm install -D @nx/nest
 ```
