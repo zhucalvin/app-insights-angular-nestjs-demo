@@ -1,1 +1,7 @@
-export const environment = {};
+export const environment = {
+    id: 'Development',
+    production: false,
+    appInsights: {
+        instrumentationKey: '<your-guid>'
+    }
+};
