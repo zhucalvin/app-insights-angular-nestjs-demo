@@ -24,7 +24,8 @@ export const appConfig: ApplicationConfig = {
 
 export function appInsightsFactory(): ApplicationInsights {
   const config: IConfig & IConfiguration = {
-    instrumentationKey: '515def38-1083-422c-b7f0-ee288130f773',
+    instrumentationKey: environment.appInsights.instrumentationKey,
+    disableTelemetry: false,
     enableCorsCorrelation: true
   };
 

@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { ApplicationInsights, SeverityLevel } from "@microsoft/applicationinsights-web";
-import { environment } from '../../environments/environment';
+//import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: "root" })
 export class MonitoringService {
   constructor(private readonly appInsights: ApplicationInsights) {
     this.appInsights.loadAppInsights();
 
+    /*
     this.appInsights.setAuthenticatedUserContext("USER_EMAIL");
 
     this.appInsights.addTelemetryInitializer(envelope => {
@@ -15,7 +16,7 @@ export class MonitoringService {
       envelope.data = {
         environment: environment.id
       };
-    });
+    });*/
   }
 
   logError(error: Error): void {
