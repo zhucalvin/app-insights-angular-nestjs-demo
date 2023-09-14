@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
     private router: Router) {}
 
   ngOnInit() {
+    /*
     this.router.events
       .pipe(filter((event): event is ResolveEnd => event instanceof ResolveEnd))
       .subscribe((event) => {
@@ -27,7 +28,10 @@ export class AppComponent implements OnInit {
           this.monitoringService.logPageView(activatedComponent.id, event.url);
         }
     });
-
+    */
+   
+    this.monitoringService.logPageView( 'homepage', 'homepageurl' );
+    
     this.monitoringService.logInfo('App initialised at ' + new Date().toString());
 
     this.monitoringService.logError(new Error('My bug-free app throws an error'));

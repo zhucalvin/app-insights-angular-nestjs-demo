@@ -1,4 +1,5 @@
 # Frontend-ui project
+The application insights for web was implemented.
 
 ### Step 1: add environments
 ```
