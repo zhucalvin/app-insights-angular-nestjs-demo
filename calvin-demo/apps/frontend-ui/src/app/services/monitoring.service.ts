@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ApplicationInsights, SeverityLevel } from "@microsoft/applicationinsights-web";
-//import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: "root" })
 export class MonitoringService {
@@ -17,6 +17,17 @@ export class MonitoringService {
         environment: environment.id
       };
     });*/
+
+
+    /* Another way to connect to Application Insights resource:
+    this.appInsights = new ApplicationInsights({
+      config: {
+        connectionString: environment.appInsights.connectionstring,
+        enableAutoRouteTracking: true // option to log all route changes
+      }
+    });
+    this.appInsights.loadAppInsights();
+    */
   }
 
   logError(error: Error): void {
