@@ -7,6 +7,7 @@ import { appRoutes } from './app.routes';
 import { ApplicationInsights, IConfig, IConfiguration } from '@microsoft/applicationinsights-web';
 import { environment } from '../environments/environment';
 import { GlobalErrorHandler } from './services/global-error-handler';
+import { DebugPlugin } from '@microsoft/applicationinsights-debugplugin-js';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,10 +24,32 @@ export const appConfig: ApplicationConfig = {
 };
 
 export function appInsightsFactory(): ApplicationInsights {
+  const toTrack = [
+    'trackEvent',
+    'trackPageView',
+    'trackPageViewPerformance',
+    'trackException',
+    'trackTrace',
+    'trackMetric',
+    'trackDependencyData',
+    'throwInternal',        // called when a message is logged internally
+    'logInternalMessage',   // called when a message is logged internally
+    'triggerSend',          // called when data is queued to be sent to the server
+    '_sender',              // called when data is sent to the server
+  ];
+  
+  const debugPluginInstance = new DebugPlugin();
+
   const config: IConfig & IConfiguration = {
     connectionString: environment.appInsights.connectionstring,
     disableTelemetry: false,
-    enableCorsCorrelation: true
+    enableCorsCorrelation: true,
+    extensions: [debugPluginInstance],
+    extensionConfig: {
+      [DebugPlugin.identifier]: {
+        trackers: toTrack
+      }
+    }
   };
 
   // send telemetry immediately for dev environment 

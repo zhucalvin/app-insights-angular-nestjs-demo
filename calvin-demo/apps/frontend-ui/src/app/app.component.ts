@@ -29,6 +29,9 @@ export class AppComponent implements OnInit {
         }
     });
     */
+
+    // Manually call trackPageView to establish the current user/session/pageview
+    this.monitoringService.trackPageView();
    
     this.monitoringService.logPageView( 'homepage', 'homepageurl' );
     

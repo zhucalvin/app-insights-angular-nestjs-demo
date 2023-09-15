@@ -30,6 +30,11 @@ export class MonitoringService {
     });*/
   }
 
+  // Manually call trackPageView to establish the current user/session/pageview
+  trackPageView(): void {
+    this.appInsights.trackPageView(); 
+  }
+
   logError(error: Error): void {
     this.appInsights.trackException({ exception: error });
   }

@@ -1,4 +1,5 @@
 # Frontend-ui project
+The proformance plugin and debug plugin were implemented for demo
 
 ### Step 1: add environments
 ```
