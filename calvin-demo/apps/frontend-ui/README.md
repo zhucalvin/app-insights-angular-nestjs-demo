@@ -22,3 +22,9 @@ npm install @microsoft/applicationinsights-web@latest
 [Angular How-to: Add Application Insights to an Angular SPA](https://devblogs.microsoft.com/premier-developer/angular-how-to-add-application-insights-to-an-angular-spa/)
 
 [Alternative way to protect your Application Insights “Instrumentation Key” in JavaScript](https://devblogs.microsoft.com/premier-developer/alternative-way-to-protect-your-application-insights-instrumentation-key-in-javascript/)
+
+
+## Optional (garbage collection CPU time, event loop ticks, and heap usage)
+```
+npm install applicationinsights-native-metrics
+```
