@@ -7,6 +7,7 @@ import { appRoutes } from './app.routes';
 import { ApplicationInsights, IConfig, IConfiguration } from '@microsoft/applicationinsights-web';
 import { environment } from '../environments/environment';
 import { GlobalErrorHandler } from './services/global-error-handler';
+import { ClickAnalyticsPlugin } from '@microsoft/applicationinsights-clickanalytics-js';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,10 +24,19 @@ export const appConfig: ApplicationConfig = {
 };
 
 export function appInsightsFactory(): ApplicationInsights {
+  const clickPluginInstance = new ClickAnalyticsPlugin();
+  // Click Analytics configuration
+  const clickPluginConfig = {
+    autoCapture: true
+  };
   const config: IConfig & IConfiguration = {
-    instrumentationKey: environment.appInsights.instrumentationKey,
+    connectionString: environment.appInsights.connectionstring,
     disableTelemetry: false,
-    enableCorsCorrelation: true
+    enableCorsCorrelation: true,
+    extensions: [clickPluginInstance],
+    extensionConfig: {
+      [clickPluginInstance.identifier]: clickPluginConfig
+    },
   };
 
   // send telemetry immediately for dev environment 
