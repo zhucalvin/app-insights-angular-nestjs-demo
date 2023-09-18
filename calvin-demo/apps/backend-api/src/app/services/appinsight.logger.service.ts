@@ -1,14 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
-
-// import { ILoggerService } from './ilogger.interface';
-
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AILoggerService {
   constructor(
     @Inject('Applicationinsights') private readonly applicationinsights,
+    private readonly configService: ConfigService
   ) {
     applicationinsights
-    .setup('<connection_string>')
+    // Configure with environment variable: APPLICATIONINSIGHTS_CONNECTION_STRING
+    // .setup() can be called with no arguments.
+    .setup(this.configService.get('APPLICATION_INSIGHTS_CONNECTION_STRING'))
     // With this option set, the SDK can track context across asynchronous callbacks in Node.js.
     .setAutoDependencyCorrelation(true)
     .setAutoCollectRequests(true)
@@ -19,8 +20,12 @@ export class AILoggerService {
     .setUseDiskRetryCaching(true)
     // Enable Live Metrics
     .setSendLiveMetrics(true)
-    .setDistributedTracingMode(applicationinsights.DistributedTracingModes.AI);
+    // Automatic web Instrumentation[Preview]: APPLICATIONINSIGHTS_WEB_INSTRUMENTATION_ENABLED = true
+    // Or manually enable web instrumentation
+    //.enableWebInstrumentation(true)
+    //.setDistributedTracingMode(applicationinsights.DistributedTracingModes.AI);
 
+    
     // By default, the SDK sends all collected data to the Application Insights service.
     // Setting samplingPercentage to 100 (the default) means all data will be sent, 
     // and 0 means nothing will be sent.
@@ -35,19 +40,18 @@ export class AILoggerService {
     this.applicationinsights.start();
   }
 
-  /*
  
   logDetails(level, log) {
     const { defaultClient } = this.applicationinsights;
     if (level === 'error') {
       defaultClient.trackException({
         exception: new Error(
-          `${this.loggerUtilityService.formatter({ level, log })}`,
+          `${level}: ${log}`,
         ),
       });
     } else {
       defaultClient.trackTrace({
-        message: `${this.loggerUtilityService.formatter({ level, log })}`,
+        message: `${level}: ${log}`,
       });
     }
     defaultClient.flush();
@@ -72,5 +76,4 @@ export class AILoggerService {
   log(message: string) {
     this.logDetails('info', message);
   }
-  */
 }

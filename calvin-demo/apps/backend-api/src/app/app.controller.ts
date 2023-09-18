@@ -14,6 +14,10 @@ export class AppController {
 
   @Get()
   getData() {
+    this.logService.error('Error message for testing !!!');
+    this.logService.debug('Debuggig message for testing !!!');
+    this.logService.info('Information message for testing !!!');
+    this.logService.warn('Information message for testing !!!');
     return this.appService.getData();
   }
 }
